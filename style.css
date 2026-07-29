@@ -54,11 +54,13 @@ body {
     flex-direction: column;
     opacity: 0;
     transition: opacity 0.4s ease;
+    pointer-events: none;
 }
 
 .screen.active {
     display: flex;
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* =========================================

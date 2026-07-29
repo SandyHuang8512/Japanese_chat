@@ -25,7 +25,7 @@
                     <a href="#" class="nav-link active" data-i18n="nav_home">🏠 首頁</a>
                     <a href="#" class="nav-link" data-i18n="nav_records">📝 練習記錄</a>
                     <a href="#" class="nav-link" data-i18n="nav_vocab">📖 單字本</a>
-                    <a href="#" class="nav-link" data-i18n="nav_resources">📚 學習資源</a>
+                    <a href="https://www.youtube.com/@Golden-ear-japanese" target="_blank" class="nav-link" data-i18n="nav_resources">📚 學習資源</a>
                     <a href="#" class="nav-link" data-i18n="nav_about">🏛 關於我們</a>
                 </div>
                 <div class="nav-right">
@@ -285,6 +285,30 @@
                     <div class="empty-state" id="records-empty-state">
                         <span class="empty-icon">📂</span>
                         <p data-i18n="records_empty">目前還沒有練習記錄喔！<br>趕快開始和 AI 老師對話吧！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ VOCAB SCREEN ============ -->
+        <div id="vocab-screen" class="screen">
+            <div class="vocab-container glass-panel">
+                <header class="vocab-header">
+                    <button id="vocab-back-btn" class="icon-btn" data-i18n="back_btn">← 返回首頁</button>
+                    <h2 data-i18n="nav_vocab">📖 單字本</h2>
+                    <div class="spacer"></div>
+                </header>
+                
+                <div class="vocab-content">
+                    <div class="vocab-tabs">
+                        <button class="vocab-tab active" data-level="N5">N5</button>
+                        <button class="vocab-tab" data-level="N4">N4</button>
+                        <button class="vocab-tab" data-level="N3">N3</button>
+                        <button class="vocab-tab" data-level="N2">N2</button>
+                        <button class="vocab-tab" data-level="N1">N1</button>
+                    </div>
+                    <div class="vocab-list" id="vocab-list">
+                        <!-- Vocab injected here -->
                     </div>
                 </div>
             </div>

@@ -1216,3 +1216,122 @@ body {
     margin-bottom: 1rem;
     opacity: 0.5;
 }
+
+/* =========================================
+   VOCAB SCREEN
+========================================= */
+#vocab-screen {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    height: calc(100vh - 80px);
+}
+
+.vocab-container {
+    background: var(--white);
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.vocab-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+    background: var(--white);
+}
+
+.vocab-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex: 1;
+    text-align: center;
+}
+
+.vocab-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.vocab-tabs {
+    display: flex;
+    padding: 1rem 2rem 0;
+    gap: 0.5rem;
+    background: var(--white);
+    border-bottom: 1px solid #eee;
+}
+
+.vocab-tab {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.vocab-tab:hover {
+    color: var(--primary-color);
+}
+
+.vocab-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.vocab-list {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    align-content: start;
+}
+
+.vocab-item {
+    background: var(--white);
+    padding: 1.2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eee;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.vocab-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.vocab-word {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+}
+
+.vocab-kana {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.vocab-meaning {
+    font-size: 0.95rem;
+    color: var(--text-light);
+}

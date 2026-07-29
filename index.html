@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金耳日語 AI老師 - 你的專屬日語學習夥伴</title>
+    <meta name="description" content="金耳日語 AI老師，隨時隨地陪你練日文！AI即時糾正、文法解析、發音建議，支援JLPT N5~N1程度。">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- ============ HOME SCREEN ============ -->
+        <div id="home-screen" class="screen active">
+            <!-- Navigation Bar -->
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <span class="brand-icon">👂</span>
+                    <div class="brand-text">
+                        <span class="brand-name">金耳日語</span>
+                        <span class="brand-sub">きんじ にほんご</span>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-i18n="nav_home">🏠 首頁</a>
+                    <a href="#" class="nav-link" data-i18n="nav_records">📝 練習記錄</a>
+                    <a href="#" class="nav-link" data-i18n="nav_vocab">📖 單字本</a>
+                    <a href="#" class="nav-link" data-i18n="nav_resources">📚 學習資源</a>
+                    <a href="#" class="nav-link" data-i18n="nav_about">🏛 關於我們</a>
+                </div>
+                <div class="nav-right">
+                    <div class="lang-selector">
+                        <span class="lang-icon">🌐</span>
+                        <select id="lang-select">
+                            <option value="zh-TW">繁體中文 (台灣)</option>
+                            <option value="zh-HK">繁體中文 (香港)</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+            </nav>
+
+            <!-- Main Content Wrapper -->
+            <main class="main-content">
+                <!-- Hero Section -->
+                <section class="hero-section">
+                    <div class="hero-left">
+                        <h1 class="hero-title">
+                            <span class="hero-ear-icon">👂</span>
+                            <span>金耳日語</span>
+                            <span class="hero-highlight"> AI老師</span>
+                            <span class="sparkle">✨</span>
+                        </h1>
+                        <p class="hero-subtitle" data-i18n="hero_subtitle">你的專屬日語學習夥伴，隨時隨地陪你練日文！</p>
+                        <div class="hero-tags">
+                            <span class="hero-tag">✅ AI即時糾正</span>
+                            <span class="hero-tag">📖 文法解析</span>
+                            <span class="hero-tag">🎙 發音建議</span>
+                            <span class="hero-tag">⭐ 自然度評分</span>
+                        </div>
+                    </div>
+                    <div class="hero-right">
+                        <div class="hero-mascot-wrapper">
+                            <img src="images/mascot.png" alt="金耳日語吉祥物" class="hero-mascot">
+                            <div class="speech-bubble">
+                                <span>一緒に<br>日本語を<br>楽しもう！</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Cards Section -->
+                <section class="feature-cards-section">
+                    <div class="feature-card" id="card-chat" data-mode="chat">
+                        <div class="feature-card-icon chat-icon">💬</div>
+                        <div class="feature-card-content">
+                            <h3 class="feature-card-title" data-i18n="card_chat_title">對話練習</h3>
+                            <p class="feature-card-desc" data-i18n="card_chat_desc">和AI老師自由對話</p>
+                        </div>
+                        <span class="feature-card-arrow">→</span>
+                    </div>
+                    <div class="feature-card" id="card-article" data-mode="article">
+                        <div class="feature-card-icon article-icon">✏️</div>
+                        <div class="feature-card-content">
+                            <h3 class="feature-card-title" data-i18n="card_article_title">文章修改</h3>
+                            <p class="feature-card-desc" data-i18n="card_article_desc">日文作文批改與建議</p>
+                        </div>
+                        <span class="feature-card-arrow">→</span>
+                    </div>
+                    <div class="feature-card highlighted" id="card-scenario" data-mode="scenario">
+                        <div class="feature-card-icon scenario-icon">🏯</div>
+                        <div class="feature-card-content">
+                            <h3 class="feature-card-title" data-i18n="card_scenario_title">情境式日語學習</h3>
+                            <p class="feature-card-desc" data-i18n="card_scenario_desc">真實場景模擬練習</p>
+                        </div>
+                        <span class="feature-card-arrow">→</span>
+                    </div>
+                </section>
+
+                <!-- JLPT Level Section -->
+                <section class="level-section">
+                    <div class="level-section-header">
+                        <span class="section-icon">🎓</span>
+                        <h2 data-i18n="level_title">選擇你的學習程度</h2>
+                        <p class="level-section-sub" data-i18n="level_subtitle">AI老師會依照你的程度提供最適合的內容</p>
+                    </div>
+                    <div class="level-grid">
+                        <button class="level-card" data-level="N5">
+                            <span class="level-number n5">N5</span>
+                            <span class="level-label" data-i18n="n5_label">初學者</span>
+                            <div class="level-info">
+                                <span class="level-vocab" data-i18n="n5_vocab">⭐ 800+ 單字</span>
+                                <span class="level-note" data-i18n="n5_note">適合零基礎</span>
+                            </div>
+                        </button>
+                        <button class="level-card" data-level="N4">
+                            <span class="level-number n4">N4</span>
+                            <span class="level-label" data-i18n="n4_label">基礎對話</span>
+                            <div class="level-info">
+                                <span class="level-vocab" data-i18n="n4_vocab">⭐ 1500+ 單字</span>
+                                <span class="level-note" data-i18n="n4_note">能簡單日常對話</span>
+                            </div>
+                        </button>
+                        <button class="level-card" data-level="N3">
+                            <span class="level-number n3">N3</span>
+                            <span class="level-label" data-i18n="n3_label">日常溝通</span>
+                            <div class="level-info">
+                                <span class="level-vocab" data-i18n="n3_vocab">⭐ 3000+ 單字</span>
+                                <span class="level-note" data-i18n="n3_note">可進行一般交流</span>
+                            </div>
+                        </button>
+                        <button class="level-card" data-level="N2">
+                            <span class="level-number n2">N2</span>
+                            <span class="level-label" data-i18n="n2_label">進階交流</span>
+                            <div class="level-info">
+                                <span class="level-vocab" data-i18n="n2_vocab">⭐ 6000+ 單字</span>
+                                <span class="level-note" data-i18n="n2_note">理解複雜內容</span>
+                            </div>
+                        </button>
+                        <button class="level-card" data-level="N1">
+                            <span class="level-number n1">N1</span>
+                            <span class="level-label" data-i18n="n1_label">流利對答</span>
+                            <div class="level-info">
+                                <span class="level-vocab" data-i18n="n1_vocab">⭐ 10000+ 單字</span>
+                                <span class="level-note" data-i18n="n1_note">接近母語程度</span>
+                            </div>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Scenario Section -->
+                <section class="scenario-section">
+                    <div class="scenario-section-header">
+                        <span class="section-icon">🗾</span>
+                        <h2 data-i18n="scenario_title">熱門情境學習</h2>
+                        <p class="scenario-section-sub" data-i18n="scenario_subtitle">選擇你想練習的場景，AI老師陪你實戰演練</p>
+                    </div>
+                    <div class="scenario-grid">
+                        <div class="scenario-card" data-scenario="airport">
+                            <div class="scenario-card-img">
+                                <img src="images/airport.png" alt="機場・入境">
+                            </div>
+                            <h4 data-i18n="sc_airport">機場・入境</h4>
+                            <p data-i18n="sc_airport_desc">旅行必備會話</p>
+                        </div>
+                        <div class="scenario-card" data-scenario="convenience">
+                            <div class="scenario-card-img">
+                                <img src="images/convenience.png" alt="超商・購物">
+                            </div>
+                            <h4 data-i18n="sc_convenience">超商・購物</h4>
+                            <p data-i18n="sc_convenience_desc">日常購物對話</p>
+                        </div>
+                        <div class="scenario-card" data-scenario="restaurant">
+                            <div class="scenario-card-img">
+                                <img src="images/restaurant.png" alt="餐廳・點餐">
+                            </div>
+                            <h4 data-i18n="sc_restaurant">餐廳・點餐</h4>
+                            <p data-i18n="sc_restaurant_desc">美食之旅必備</p>
+                        </div>
+                        <div class="scenario-card" data-scenario="hotel">
+                            <div class="scenario-card-img">
+                                <img src="images/hotel.png" alt="飯店・住宿">
+                            </div>
+                            <h4 data-i18n="sc_hotel">飯店・住宿</h4>
+                            <p data-i18n="sc_hotel_desc">入住退房必備</p>
+                        </div>
+                        <div class="scenario-card" data-scenario="interview">
+                            <div class="scenario-card-img">
+                                <img src="images/interview.png" alt="面試・工作">
+                            </div>
+                            <h4 data-i18n="sc_interview">面試・工作</h4>
+                            <p data-i18n="sc_interview_desc">商務日語必備</p>
+                        </div>
+                        <div class="scenario-card more-card" data-scenario="more">
+                            <div class="scenario-card-img more-icon-wrapper">
+                                <span class="more-dots">•••</span>
+                            </div>
+                            <h4 data-i18n="sc_more">更多情境</h4>
+                            <p data-i18n="sc_more_desc">探索更多...</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <div class="footer-brand-info">
+                            <span class="footer-brand-icon">👂</span>
+                            <span class="footer-brand-name">金耳日語 Sandy</span>
+                            <span class="footer-verified">✅</span>
+                        </div>
+                        <p class="footer-brand-desc">YouTube 頻道・日語教學・學習分享</p>
+                        <a href="https://www.youtube.com/@Golden-ear-japanese" target="_blank" class="footer-subscribe-btn" data-i18n="footer_subscribe">前往頻道 ▶</a>
+                    </div>
+                    <div class="footer-cta">
+                        <h3 data-i18n="footer_cta_title">喜歡這個AI學習平台嗎？</h3>
+                        <p data-i18n="footer_cta_desc">訂閱我的YouTube頻道，獲得更多免費日語教學內容！</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@Golden-ear-japanese" target="_blank" class="social-link">
+                            <span class="social-icon">▶</span>
+                            <span>YouTube</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="social-icon">📷</span>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="social-icon">📘</span>
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 金耳日語 All rights reserved. <span class="footer-motto">👂 用心聆聽每一個學習的聲音</span></p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- ============ LEVEL SELECT MODAL ============ -->
+        <div id="level-modal" class="modal-overlay" style="display:none;">
+            <div class="modal-content glass-panel">
+                <button class="modal-close" id="modal-close-btn">✕</button>
+                <h2 id="modal-title" data-i18n="modal_level_title">選擇程度開始練習</h2>
+                <p id="modal-subtitle" class="modal-sub" data-i18n="modal_level_subtitle">AI老師會依照你的程度提供最適合的指導</p>
+                <div class="modal-level-grid">
+                    <button class="modal-level-btn" data-level="N5">
+                        <span class="level-number n5">N5</span>
+                        <span data-i18n="n5_label">初學者</span>
+                    </button>
+                    <button class="modal-level-btn" data-level="N4">
+                        <span class="level-number n4">N4</span>
+                        <span data-i18n="n4_label">基礎對話</span>
+                    </button>
+                    <button class="modal-level-btn" data-level="N3">
+                        <span class="level-number n3">N3</span>
+                        <span data-i18n="n3_label">日常溝通</span>
+                    </button>
+                    <button class="modal-level-btn" data-level="N2">
+                        <span class="level-number n2">N2</span>
+                        <span data-i18n="n2_label">進階交流</span>
+                    </button>
+                    <button class="modal-level-btn" data-level="N1">
+                        <span class="level-number n1">N1</span>
+                        <span data-i18n="n1_label">流利對答</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ RECORDS SCREEN ============ -->
+        <div id="records-screen" class="screen">
+            <div class="records-container glass-panel">
+                <header class="records-header">
+                    <button id="records-back-btn" class="icon-btn" data-i18n="back_btn">← 返回首頁</button>
+                    <h2 data-i18n="nav_records">📝 練習記錄</h2>
+                    <div class="spacer"></div>
+                </header>
+                
+                <div class="records-list" id="records-list">
+                    <!-- Records will be injected here by JS -->
+                    <div class="empty-state" id="records-empty-state">
+                        <span class="empty-icon">📂</span>
+                        <p data-i18n="records_empty">目前還沒有練習記錄喔！<br>趕快開始和 AI 老師對話吧！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ CHAT SCREEN ============ -->
+        <div id="chat-screen" class="screen">
+            <div class="chat-container glass-panel">
+                <header class="chat-header">
+                    <button id="back-btn" class="icon-btn" data-i18n="back_btn">← 返回</button>
+                    <div class="teacher-info">
+                        <h2 data-i18n="ai_teacher">AI 日文老師</h2>
+                        <span id="current-level-badge" class="badge">N3</span>
+                    </div>
+                    <div class="spacer"></div>
+                </header>
+                
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Messages will be injected here by JS -->
+                </div>
+
+                <div class="chat-input-area">
+                    <textarea id="user-input" placeholder="請輸入日文開始聊天... (支援 Enter 發送)" rows="1"></textarea>
+                    <button id="send-btn" class="primary-btn" data-i18n="send_btn">發送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "japanese-chat",
+  "version": "1.0.0",
+  "description": "Japanese Learning AI Chat",
+  "main": "app.js",
+  "scripts": {
+    "build": "echo 'Ready'",
+    "start": "echo 'Static site'"
+  },
+  "dependencies": {}
+}

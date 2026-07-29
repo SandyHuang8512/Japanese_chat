@@ -1,4 +1,4 @@
-﻿const vocabData = {
+const vocabData = {
   'N5': [
     {word:'私',kana:'わたし',zh:'我',en:'I/me'},
     {word:'あなた',kana:'あなた',zh:'你',en:'you'},

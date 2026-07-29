@@ -599,6 +599,32 @@ function escapeHTML(str) {
 }
 
 // ==========================================
+// Vocabulary Render Function
+// ==========================================
+function renderVocab(level) {
+    vocabList.innerHTML = '';
+    const items = (typeof vocabData !== 'undefined' && vocabData[level]) ? vocabData[level] : [];
+    const isEnglish = currentLang === 'en';
+
+    if (items.length === 0) {
+        vocabList.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#999;padding:3rem;">沒有資料</div>';
+        return;
+    }
+
+    items.forEach(item => {
+        const meaning = isEnglish ? item.en : item.zh;
+        const div = document.createElement('div');
+        div.className = 'vocab-item';
+        div.innerHTML = `
+            <div class="vocab-word">${item.word}</div>
+            <div class="vocab-kana">${item.kana}</div>
+            <div class="vocab-meaning">${meaning}</div>
+        `;
+        vocabList.appendChild(div);
+    });
+}
+
+// ==========================================
 // Event Listeners
 // ==========================================
 langSelect.addEventListener('change', (e) => {

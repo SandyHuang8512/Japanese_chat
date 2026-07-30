@@ -1137,19 +1137,44 @@ body {
     }
     
     .main-content {
+        padding: 1rem;
         padding-bottom: 80px;
+    }
+    
+    .hero-section, .level-section, .scenario-section {
+        padding: 1.5rem 1rem;
+        border-radius: 20px;
+    }
+    
+    .level-section-header h2, .scenario-section-header h2 {
+        font-size: 1.5rem;
     }
     
     .feature-cards-section {
         grid-template-columns: 1fr;
     }
     
-    .level-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .level-grid, .scenario-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        scroll-snap-type: x mandatory;
     }
     
-    .scenario-grid {
-        grid-template-columns: 1fr;
+    .level-grid::-webkit-scrollbar, .scenario-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .level-grid::-webkit-scrollbar-thumb, .scenario-grid::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    .level-card, .scenario-card {
+        min-width: 160px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
     
     .hero-title {

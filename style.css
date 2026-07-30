@@ -146,7 +146,7 @@ body {
     align-items: center;
 }
 
-.lang-selector {
+.lang-selector, .voice-selector {
     display: flex;
     align-items: center;
     gap: 0.5rem;

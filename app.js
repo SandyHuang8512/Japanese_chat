@@ -1,6 +1,6 @@
 // API 設定
 const API_URL = '/api/chat'; 
-const MODEL_NAME = 'llama-3.1-8b-instant';
+const MODEL_NAME = 'llama-3.3-70b-versatile';
 
 // ==========================================
 // DOM Elements
@@ -82,7 +82,7 @@ const i18n = {
         footer_subscribe: '前往頻道 ▶',
         
         back_btn: '← 返回首頁', ai_teacher: '金耳日語 AI老師', send_btn: '發送',
-        input_chat: '請輸入日文開始聊天... (支援 Enter 發送)',
+        input_chat: '請輸入文字開始聊天... (支援 Enter 發送)',
         input_article: '請貼上您的日文文章...',
         ai_lang_name: '繁體中文(台灣)',
         correction_label: '💡 老師的指導與糾正：',
@@ -122,7 +122,7 @@ const i18n = {
         footer_subscribe: '前往頻道 ▶',
         
         back_btn: '← 返回首頁', ai_teacher: '金耳日語 AI老師', send_btn: '傳送',
-        input_chat: '請輸入日文開始傾偈... (支援 Enter 傳送)',
+        input_chat: '請輸入文字開始傾偈... (支援 Enter 傳送)',
         input_article: '請貼上你嘅日文文章...',
         ai_lang_name: '廣東話(Cantonese)',
         correction_label: '💡 老師嘅指導同糾正：',
@@ -162,7 +162,7 @@ const i18n = {
         footer_subscribe: 'Go to Channel ▶',
         
         back_btn: '← Back to Home', ai_teacher: 'Golden Ear AI Teacher', send_btn: 'Send',
-        input_chat: 'Type in Japanese to chat... (Press Enter to send)',
+        input_chat: 'Type in text to chat... (Press Enter to send)',
         input_article: 'Paste your Japanese article here...',
         ai_lang_name: 'English',
         correction_label: '💡 Teacher\'s Guidance:',
@@ -483,8 +483,10 @@ function appendAIMessage(data) {
     const msgDiv = document.createElement('div');
     msgDiv.className = 'message ai';
     
+    // 主要回覆文字
     let html = `<div class="bubble">${escapeHTML(data.reply)}</div>`;
     const correctionLabel = t['correction_label'] || '💡 老師的指導與糾正：';
+    // 若有糾正內容，加入修正框
     if (data.correction && data.correction.trim() !== '') {
         html += `
             <div class="correction-box">
@@ -493,8 +495,20 @@ function appendAIMessage(data) {
             </div>
         `;
     }
-    
     msgDiv.innerHTML = html;
+    // 單一音訊播放按鈕（回覆 + 糾正）
+    const btn = document.createElement('button');
+    btn.className = 'audio-btn';
+    btn.title = '聽內容';
+    btn.innerHTML = '🔊';
+    btn.addEventListener('click', () => {
+        let combined = data.reply;
+        if (data.correction && data.correction.trim() !== '') {
+            combined += '\n' + data.correction;
+        }
+        speakText(cleanJapanese(combined));
+    });
+    msgDiv.appendChild(btn);
     chatMessages.appendChild(msgDiv);
     scrollToBottom();
 }
@@ -533,6 +547,91 @@ function escapeHTML(str) {
     );
 }
 
+// 頁面載入時取得語音並填充選單
+function populateVoices() {
+    if (!('speechSynthesis' in window)) return;
+    let voices = window.speechSynthesis.getVoices();
+    window._cachedVoices = voices;
+    const voiceSelect = document.getElementById('voice-select');
+    if (!voiceSelect) return;
+    
+    // 只列出日文聲音
+    const jaVoices = voices.filter(v => v.lang && v.lang.startsWith('ja'));
+    voiceSelect.innerHTML = '';
+    
+    if (jaVoices.length === 0) {
+        voiceSelect.innerHTML = '<option value="">無日文語音</option>';
+        return;
+    }
+    
+    jaVoices.sort((a, b) => a.name.localeCompare(b.name));
+    
+    let selectedSet = false;
+    jaVoices.forEach((v, index) => {
+        const opt = document.createElement('option');
+        opt.value = index;
+        opt.textContent = v.name;
+        
+        // 預設選擇較年輕活潑的，或包含 female, young 的
+        if (!selectedSet && /female|young|girl/i.test(v.name)) {
+            opt.selected = true;
+            selectedSet = true;
+        }
+        voiceSelect.appendChild(opt);
+    });
+}
+
+window.addEventListener('load', () => {
+    if ('speechSynthesis' in window) {
+        populateVoices();
+        if (window.speechSynthesis.getVoices().length === 0) {
+            window.speechSynthesis.addEventListener('voiceschanged', populateVoices);
+        }
+    }
+});
+
+// 語音播放輔助函式，使用瀏覽器 SpeechSynthesis
+function speakText(text) {
+    if (!('speechSynthesis' in window)) {
+        console.error('此瀏覽器不支援語音合成');
+        return;
+    }
+    try {
+        if (!window._cachedVoices || window._cachedVoices.length === 0) {
+            window._cachedVoices = window.speechSynthesis.getVoices();
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        
+        const jaVoices = (window._cachedVoices || []).filter(v => v.lang && v.lang.startsWith('ja'));
+        const voiceSelect = document.getElementById('voice-select');
+        let jpVoice = null;
+        
+        if (voiceSelect && voiceSelect.value !== "") {
+            jpVoice = jaVoices[parseInt(voiceSelect.value)];
+        }
+        if (!jpVoice && jaVoices.length > 0) {
+            jpVoice = jaVoices[0];
+        }
+        
+        if (jpVoice) {
+            utterance.voice = jpVoice;
+        }
+        console.log('▶️ speakText:', text, '| 使用語音:', jpVoice ? jpVoice.name : 'default');
+        window.speechSynthesis.speak(utterance);
+    } catch (err) {
+        console.error('❌ speakText 發生錯誤:', err);
+    }
+}
+// 簡易日文清理函式，保留假名與漢字，移除非日文字符
+function cleanJapanese(text) {
+    if (!text) return '';
+    // 移除 HTML 標記與多餘空白
+    let cleaned = text.replace(/<[^>]*>/g, '').trim();
+    // 只保留日文字符（平假名、片假名、漢字）
+    cleaned = cleaned.replace(/[^\u3040-\u30FF\u4E00-\u9FFF]+/g, '');
+    return cleaned;
+}
 // ==========================================
 // Vocabulary Render Function
 // ==========================================
@@ -550,11 +649,20 @@ function renderVocab(level) {
         const meaning = isEnglish ? item.en : item.zh;
         const div = document.createElement('div');
         div.className = 'vocab-item';
+        const cleanWord = cleanJapanese(item.word);
+        // 語音播放按鈕
+        const audioBtn = document.createElement('button');
+        audioBtn.className = 'audio-btn';
+        audioBtn.title = '聽發音';
+        audioBtn.innerHTML = '🔊';
+        audioBtn.addEventListener('click', () => speakText(cleanWord));
         div.innerHTML = `
             <div class="vocab-word">${item.word}</div>
             <div class="vocab-kana">${item.kana}</div>
             <div class="vocab-meaning">${meaning}</div>
         `;
+        // 將按鈕加入項目
+        div.appendChild(audioBtn);
         vocabList.appendChild(div);
     });
 }

@@ -99,12 +99,14 @@ body {
     font-weight: 900;
     color: var(--primary-color);
     letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .brand-sub {
     font-size: 0.75rem;
     color: var(--text-light);
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .nav-links {
@@ -1085,15 +1087,57 @@ body {
 
 @media (max-width: 768px) {
     .navbar {
-        padding: 1rem 2rem;
+        padding: 0.8rem 1rem;
+    }
+    
+    .brand-name {
+        font-size: 1.1rem;
+    }
+    
+    .nav-right {
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+    
+    .voice-dropdown {
+        top: 2.8rem;
     }
     
     .nav-links {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        justify-content: space-around;
+        padding: 0.8rem 0;
+        z-index: 1000;
+        margin: 0;
+        gap: 0;
+    }
+    
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.2rem;
+    }
+    
+    .nav-link.active::after {
         display: none;
+    }
+    .nav-link.active {
+        background: var(--bg-light);
+        border-radius: 8px;
+        padding: 0.4rem 0.6rem;
     }
     
     .mobile-menu-btn {
-        display: block;
+        display: none;
+    }
+    
+    .main-content {
+        padding-bottom: 80px;
     }
     
     .feature-cards-section {
